@@ -95,7 +95,7 @@ function App() {
           <input
             type="email"
             name="email"
-            placeholder="joeschmo@mail.com"
+            placeholder="joeschmo@mail.com..."
           ></input>
 
           <label>Additional Comments</label>

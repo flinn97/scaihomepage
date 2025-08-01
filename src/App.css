@@ -35,7 +35,7 @@
 }
 
 button {
-
+  opacity: 1;
 }
 
 .hero {
@@ -95,7 +95,7 @@ button {
 }
 
 .panel-graphic {
-
+ opacity: 1;
 }
 
 .robot {
