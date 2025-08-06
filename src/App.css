@@ -84,7 +84,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 100px 50px;
+  padding: 8px 50px;
   gap: 40px;
   font-size: 20px;
   font-weight: 500;
@@ -92,6 +92,20 @@ button {
 
 .panel-text {
   max-width: 600px;
+}
+
+.panel-text-long{
+  margin:0px;
+  padding: 20px 50px; 
+  margin-top:-8px; 
+  color: var(--text-accent);
+  font-size: 18px;
+  gap: 4px;
+  min-height: 20px;
+  justify-self: center;
+  font-weight: 400;
+  max-width: 1084px;
+  text-align: justify;
 }
 
 .panel-graphic {
