@@ -1,9 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SalesCapture AI",
+  "name": "The SalesCapture AI Agent",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "scaiico.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
