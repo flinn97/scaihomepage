@@ -158,3 +158,33 @@ footer {
 .scrolled .header-button:hover {
   background-color: var(--light-accent);
 }
+
+/* Add these styles to your App.css file */
+
+.thank-you-message {
+  text-align: center;
+  padding: 40px 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.thank-you-message h2 {
+  color: var(--dark-accent);
+  font-size: 2em;
+}
+
+.thank-you-message p {
+  color: var(--text-color);
+  font-size: 1.1em;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: #D8000C; /* A standard error red color */
+  background-color: #FFD2D2;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ReactComponent as LogoSvg } from "./logo.svg";
 
-export default function Header() {
+export default function Header(props) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function Header() {
           scrolled ? "scrolled" : ""
         }`}>
         <LogoSvg className="logo" />
-        <button className="header-button">sign up</button>
+        <button onClick={() => props.scrollTo(props.demoRef)} className="header-button">sign up</button>
     </header>
   );
 }

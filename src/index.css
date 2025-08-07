@@ -88,3 +88,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.button-sub {
+  display: inline-block;
+  margin-top: 40px;
+  border-radius: 8px;
+  border: none;
+  padding: 10px 30px;
+  width: 200px;
+  background-color: var(--light-accent);
+  color: var(--text-accent);
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.button-sub:hover {
+  background-color: var(--accent);
+}

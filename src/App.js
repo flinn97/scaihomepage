@@ -3,13 +3,22 @@ import { ReactComponent as HeroGraphic } from "./Sales_Capture_hero_graphic.svg"
 import { ReactComponent as Robot } from "./Sales Ai Robot.svg";
 import { ReactComponent as AgentRobot } from "./SalesManRobot.svg";
 import { ReactComponent as SalesDocument } from "./SalesDocument.svg";
-// import { ReactComponent as Logo } from "./logo.svg";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./App.css";
 
 function App() {
   const demoRef = useRef(null);
+  
+  // Form state management
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [comments, setComments] = useState("");
+  
+  // State to track submission status
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState(null);
 
   const scrollTo = (ref, behavior = "smooth") => {
     if (ref?.current) {
@@ -17,9 +26,52 @@ function App() {
     }
   };
 
+  // Function to handle form submission
+  const handleDemoSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+    
+    // Simple validation
+    if (!name || !email) {
+      setError("Name and Email are required.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError(null);
+
+    const formData = { name, email, comments };
+    const functionUrl = "https://handledemorequestsendgrid-7c5i3vsqma-uc.a.run.app";
+
+    try {
+      const response = await fetch(functionUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        // Try to get error message from function response
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'An error occurred. Please try again.');
+      }
+      
+      // On success, update state to show thank you message
+      setIsSubmitted(true);
+
+    } catch (err) {
+      console.error("Submission Error:", err);
+      setError(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+
   return (
     <div className="app">
-      <Header />
+      <Header scrollTo={scrollTo.bind(this)} demoRef={demoRef}/>
 
       <section className="hero">
         <div className="hero-text">
@@ -161,27 +213,48 @@ function App() {
         className="contact-form"
         style={{ background: "var(--lightest-accent)" }}
       >
-        <form>
-          <h2>Request a Demo</h2>
-          <label>Name</label>
-          <input type="text" name="name" placeholder="Your name.."></input>
+        {isSubmitted ? (
+          <div className="thank-you-message">
+            <h2>Thank You!</h2>
+            <p>Your demo request has been received. We will be in touch shortly.</p>
+          </div>
+        ) : (
+          <form onSubmit={handleDemoSubmit}>
+            <h2>Request a Demo</h2>
+            <label>Name</label>
+            <input             
+              onChange={(e)=>{setName(e.target.value)}}
+              type="text"
+              name="name"
+              placeholder="Your name.."
+              value={name}
+            />
 
-          <label>Email Address</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="joeschmo@mail.com..."
-          ></input>
+            <label>Email Address</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="joeschmo@mail.com..."
+              onChange={(e)=>{setEmail(e.target.value)}}
+              value={email}
+            />
 
-          <label>Additional Comments</label>
-          <input
-            type="text"
-            name="comments"
-            placeholder="Your comments..."
-          ></input>
-
-          <input type="submit" value="Submit"></input>
-        </form>
+            <label>Additional Comments</label>
+            <input
+              type="text"
+              name="comments"
+              onChange={(e)=>{setComments(e.target.value)}}
+              placeholder="Your comments..."
+              value={comments}
+            />
+            
+            <button type="submit" className="button-sub" disabled={isSubmitting}>
+              {isSubmitting ? 'Processing...' : 'Submit'}
+            </button>
+            
+            {error && <p className="error-message">{error}</p>}
+          </form>
+        )}
       </section>
 
       <footer>
