@@ -5,11 +5,10 @@ export default function Header(props) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", () =>
-        setScrolled(window.pageYOffset > 10)
-      );
-    }
+    const onScroll = () => setScrolled(window.pageYOffset > 10);
+    onScroll(); // set initial on refresh mid-scroll
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
@@ -17,7 +16,7 @@ export default function Header(props) {
           scrolled ? "scrolled" : ""
         }`}>
         <LogoSvg className="logo" />
-        <button onClick={() => props.scrollTo(props.demoRef)} className="header-button">sign up</button>
+        <a style={{textDecoration:"none"}} href = "https://app.salescapture.ai" target="_blank" onClick={() => props.scrollTo(props.demoRef)} className="header-button">sign in</a>
     </header>
   );
 }

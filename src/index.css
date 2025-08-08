@@ -8,6 +8,27 @@
   --neutral: #9A9A9A;
   --neutral-medium: #696969;
   --neutral-dark: #262626;
+  --header-h: 80px; /* default desktop */
+}
+@media (prefers-color-scheme: dark) {
+  :root { --logo-color: #B2EFDF; }              /* brighter/contrasty on dark */
+}
+/* Apply to every element in the SVG */
+.logo * {
+  fill: var(--logo-color) !important;
+  stroke: var(--logo-color) !important; /* if your SVG uses strokes */
+}
+@media (max-width: 768px) {
+  :root { --header-h: 64px; }
+}
+@media (prefers-color-scheme: dark) {
+  :root { --logo-color: #B2EFDF; }              /* brighter/contrasty on dark */
+}
+
+/* Apply to every element in the SVG */
+.logo * {
+  fill: var(--logo-color) !important;
+  stroke: var(--logo-color) !important; /* if your SVG uses strokes */
 }
 
 * {
@@ -63,7 +84,7 @@ input[type=text], input[type=email] {
 }
 
 label {
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   color: var(--text-accent);
   font-weight: 600;
 }
@@ -73,10 +94,12 @@ input[type=submit] {
   border-radius: 8px;
   border: none;
   padding: 10px 30px;
-  width: 200px;
+  width: 100%;
   background-color: var(--light-accent);
   color: var(--text-accent);
   font-weight: 600;
+  margin-bottom: 22px;
+
 }
 
 input[type=submit]:hover {
@@ -94,16 +117,19 @@ code {
   margin-top: 40px;
   border-radius: 8px;
   border: none;
-  padding: 10px 30px;
-  width: 200px;
+  padding: 12px 18px;
+  width: 100%; 
   background-color: var(--light-accent);
   color: var(--text-accent);
   font-weight: 600;
-  font-size: 20px;
+  font-size: clamp(16px, 2.6vw, 20px);
   text-align: center;
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.2s ease;
+}
+@media (min-width: 769px) {
+  .button-sub { width: 240px; }    /* revert to fixed width on larger screens */
 }
 
 .button-sub:hover {
