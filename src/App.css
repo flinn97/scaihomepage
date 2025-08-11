@@ -283,3 +283,19 @@ footer {
     font-size: 16px;
   }
 }
+
+.button-footer{
+  cursor: pointer;
+}
+
+.button-footer:hover{
+  filter: brightness(1.2);
+}
+
+li{
+  margin-left: 42px;
+}
+
+h2{
+  margin-top: .8em;
+}
