@@ -10,13 +10,13 @@ export default function Header(props) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
+  
   return (
     <header className={`app-header ${
           scrolled ? "scrolled" : ""
         }`}>
         <LogoSvg className="logo" />
-        <a style={{textDecoration:"none"}} href = "https://app.salescapture.ai" target="_blank" onClick={() => props.scrollTo(props.demoRef)} className="header-button">sign in</a>
+        <a style={{textDecoration:"none"}} rel="noreferrer" href="https://app.salescapture.ai" target="_blank" onClick={() => props.scrollTo(props.demoRef)} className="header-button">sign in</a>
     </header>
   );
 }

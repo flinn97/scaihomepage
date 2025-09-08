@@ -4,11 +4,26 @@ import { ReactComponent as Robot } from "./Sales Ai Robot.svg";
 import { ReactComponent as AgentRobot } from "./SalesManRobot.svg";
 import { ReactComponent as SalesDocument } from "./SalesDocument.svg";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./App.css";
+import LegalView from "./legalView.js";
 
 function App() {
   const demoRef = useRef(null);
+
+  const [view, setView] = useState('home');
+
+  // Keep the URL hash in sync so users can share / reload
+  useEffect(() => {
+    const applyFromHash = () => {
+      const h = window.location.hash.replace('#', '');
+      if (h === 'privacy' || h === 'terms') setView(h);
+      else setView('home');
+    };
+    applyFromHash();
+    window.addEventListener('hashchange', applyFromHash);
+    return () => window.removeEventListener('hashchange', applyFromHash);
+  }, []);
 
   // Form state management
   const [name, setName] = useState("");
@@ -68,11 +83,15 @@ function App() {
     }
   };
 
+  const goToMessage = (message) =>{
+      window.location.hash = message; // updates view via hash listener
+  };
 
   return (
     <div className="app">
       <Header scrollTo={scrollTo.bind(this)} demoRef={demoRef} />
-
+{view === 'home' ? (
+        <>
       <section className="hero">
         <div className="hero-text">
           <h1 className="hero-heading">
@@ -261,12 +280,21 @@ function App() {
           </form>
         )}
       </section>
+      </>
+      ) : (
+        <LegalView
+          type={view}
+          onBack={() => goToMessage('')}
+        />
+      )}
 
       <footer>
         <div>Copyright © 2025 Salescaptureai LLC. All rights reserved.</div>
         <nav className="footer-links">
-          <div>data privacy</div>
-          <div>terms of use</div>
+          <div className="button-footer"  onClick={() => {goToMessage("privacy")}}>
+            data privacy</div>
+          <div className="button-footer"  onClick={() => {goToMessage("terms")}}>
+            terms of use</div>
         </nav>
       </footer>
     </div>
