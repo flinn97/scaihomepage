@@ -2,16 +2,76 @@
   "hosting": {
     "site": "scaiweb",
     "public": "build",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+
+    "redirects": [
+      { "source": "/.git{,/**}",     "destination": "/404.html", "type": 308 },
+      { "source": "/.hg{,/**}",      "destination": "/404.html", "type": 308 },
+      { "source": "/.bzr{,/**}",     "destination": "/404.html", "type": 308 },
+      { "source": "/.svn{,/**}",     "destination": "/404.html", "type": 308 },
+      { "source": "/.darcs{,/**}",   "destination": "/404.html", "type": 308 },
+      { "source": "/BitKeeper{,/**}","destination": "/404.html", "type": 308 }
     ],
-    "rewrites": [
+
+    "headers": [
+      {
+        "source": "/index.html",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+          { "key": "Pragma", "value": "no-cache" },
+          { "key": "Expires", "value": "0" }
+        ]
+      },
+      {
+        "source": "/sw.js",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        ]
+      },
+      {
+        "source": "/static/**/*.@(js|css)",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        ]
+      },
+      {
+        "source": "**/*.@(png|jpg|jpeg|gif|webp|ico|svg)",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=604800" }
+        ]
+      },
+      {
+        "source": "/manifest.json",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=3600" }
+        ]
+      },
+      {
+        "source": "/sitemap.xml",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=300" }
+        ]
+      },
+      {
+        "source": "/robots.txt",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=300" }
+        ]
+      },
       {
         "source": "**",
-        "destination": "/index.html"
+        "headers": [
+          { "key": "Referrer-Policy", "value": "no-referrer" },
+          { "key": "Permissions-Policy", "value": "camera=(), microphone=()" },
+          { "key": "Content-Security-Policy", "value": "frame-ancestors 'none';" },
+          { "key": "X-Frame-Options", "value": "DENY" },
+          { "key": "X-Content-Type-Options", "value": "nosniff" }
+        ]
       }
+    ],
+
+    "rewrites": [
+      { "source": "**", "destination": "/index.html" }
     ]
   }
 }
