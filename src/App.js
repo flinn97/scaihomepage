@@ -293,7 +293,7 @@ function App() {
                 >
                   Demo
                 </button> */}
-                <ul className="bullet-section">
+                <ul className="bullet-section" style={{background:`#ffffff22`}}>
                   <li>Prompt‑Driven Research Agents</li>
                   <li>Multi‑Source Prospect Discovery</li>
                   <li>AI‑Powered Vetting & Verification</li>
